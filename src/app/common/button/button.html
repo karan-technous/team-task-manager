@@ -1,1 +1,13 @@
-<p>button works!</p>
+<button
+  [attr.type]="type()"
+  [class.secondary]="variant() === 'secondary'"
+  [class.full-width]="fullWidth()"
+  (click)="onClick()"
+>
+  @if (icon()) {
+    <mat-icon>{{ icon() }}</mat-icon>
+  }
+  <span>
+    {{ label() }}
+  </span>
+</button>
