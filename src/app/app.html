@@ -1,14 +1,8 @@
 <div class="app-shell">
   @if (showShell()) {
-    <!-- <app-navbar /> -->
     <app-sidebar />
   }
-
   <main class="app-main">
     <router-outlet />
   </main>
-
-  @if (showShell()) {
-    <!-- <app-footer /> -->
-  }
 </div>
