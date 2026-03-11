@@ -7,8 +7,7 @@
     <app-toast
       [toast]="toast"
       [index]="i"
-      [hovered]="hovered()"
-      [total]="totalCount()"
+      [layout]="layout()"
       (close)="toastService.remove(toast.id)"
     />
   }

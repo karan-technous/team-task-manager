@@ -12,9 +12,7 @@ export class ToastComponent {
 
   index = input<number>(0);
 
-  total = input<number>(0);
-
-  hovered = input<boolean>(false);
+  layout = input<'stacked' | 'vertical'>('vertical');
 
   close = output<void>();
 
@@ -39,7 +37,7 @@ export class ToastComponent {
   private readonly stackScaleStep = 0.05;
 
   offset = computed(() => {
-    const stacked = this.total() > 3 && !this.hovered();
+    const stacked = this.layout() === 'stacked';
 
     // vertical layout (default + on hover)
     if (!stacked) {
@@ -51,7 +49,7 @@ export class ToastComponent {
   });
 
   scale = computed(() => {
-    const stacked = this.total() > 3 && !this.hovered();
+    const stacked = this.layout() === 'stacked';
     if (!stacked) return 1;
 
     return Math.max(0.85, 1 - this.index() * this.stackScaleStep);

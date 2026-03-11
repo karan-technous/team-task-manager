@@ -4,7 +4,6 @@ import { Toast } from './toast.model';
 @Injectable({ providedIn: 'root' })
 export class ToastService {
   private id = 0;
-  private readonly maxVisible = 3;
   private readonly exitMs = 300;
 
   toasts = signal<Toast[]>([]);
@@ -18,7 +17,6 @@ export class ToastService {
     };
 
     this.toasts.update((list) => [newToast, ...list]);
-    this.trimOverflow();
   }
 
   remove(id: number) {
@@ -42,9 +40,4 @@ export class ToastService {
     }, this.exitMs);
   }
 
-  private trimOverflow() {
-    const overflow = this.toasts().slice(this.maxVisible);
-    if (!overflow.length) return;
-    overflow.forEach((toast) => this.remove(toast.id));
-  }
 }

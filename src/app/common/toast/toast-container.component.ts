@@ -17,4 +17,11 @@ export class ToastContainerComponent {
   visibleToasts = computed(() => this.toastService.toasts().slice(0, 3));
 
   totalCount = computed(() => this.toastService.toasts().length);
+
+  layout = computed<'stacked' | 'vertical'>(() => {
+    const count = this.totalCount();
+    if (this.hovered()) return 'vertical';
+    if (count > 3) return 'stacked';
+    return 'vertical';
+  });
 }
