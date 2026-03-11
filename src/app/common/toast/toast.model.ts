@@ -11,8 +11,6 @@ export interface Toast {
 
   type?: 'success' | 'error' | 'warning' | 'pending';
 
-  position?: ToastPosition;
-
   action?: {
     label: string;
     handler: () => void;
@@ -30,7 +28,6 @@ export type ToastPosition =
 export interface ToastOptions {
   description?: string;
   duration?: number;
-  position?: ToastPosition;
   action?: {
     label: string;
     handler: () => void;

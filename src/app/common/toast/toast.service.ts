@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { Toast, ToastOptions, ToastPosition } from './toast.model';
+import { Toast, ToastOptions } from './toast.model';
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {
@@ -7,7 +7,6 @@ export class ToastService {
   private readonly exitMs = 300;
 
   toasts = signal<Toast[]>([]);
-  position = signal<ToastPosition>('top-right');
 
   show(toast: Omit<Toast, 'id'>) {
     const newToast: Toast = {
@@ -16,10 +15,6 @@ export class ToastService {
       removing: false,
       ...toast,
     };
-
-    if (newToast.position) {
-      this.position.set(newToast.position);
-    }
 
     this.toasts.update((list) => [newToast, ...list]);
   }
@@ -71,7 +66,6 @@ export class ToastService {
       title,
       description: description ?? options?.description,
       duration: options?.duration,
-      position: options?.position,
       action: options?.action,
       type,
     });

@@ -1,5 +1,6 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { ToastService } from './toast.service';
+import { ToastPosition } from './toast.model';
 import { ToastComponent } from './toast.component';
 
 @Component({
@@ -12,13 +13,13 @@ import { ToastComponent } from './toast.component';
 export class ToastContainerComponent {
   toastService = inject(ToastService);
 
+  position = input<ToastPosition>('top-right');
+
   hovered = signal(false);
 
   visibleToasts = computed(() => this.toastService.toasts().slice(0, 3));
 
   totalCount = computed(() => this.toastService.toasts().length);
-
-  position = computed(() => this.toastService.position());
 
   layout = computed<'stacked' | 'vertical'>(() => {
     const count = this.totalCount();
