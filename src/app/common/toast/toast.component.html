@@ -1,0 +1,23 @@
+<div
+  class="toast"
+  [class.removing]="toast().removing"
+  [style.transform]="'translateY(' + offset() + 'px) scale(' + scale() + ')'"
+>
+  <div class="content">
+    <div class="title">
+      {{ toast().title }}
+    </div>
+
+    @if (toast().description) {
+      <div class="desc">
+        {{ toast().description }}
+      </div>
+    }
+  </div>
+
+  @if (toast().action) {
+    <button class="action" (click)="toast().action!.handler()">
+      {{ toast().action!.label }}
+    </button>
+  }
+</div>

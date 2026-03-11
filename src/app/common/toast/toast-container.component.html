@@ -1,0 +1,11 @@
+<div class="toast-container" (mouseenter)="hovered = true" (mouseleave)="hovered = false">
+  @for (toast of toastService.toasts(); track toast.id; let i = $index) {
+    <app-toast
+      [toast]="toast"
+      [index]="i"
+      [hovered]="hovered"
+      [total]="toastService.toasts().length"
+      (close)="toastService.remove(toast.id)"
+    />
+  }
+</div>

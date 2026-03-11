@@ -19,6 +19,24 @@
       (valueChange)="searchUsers($event)"
     />
     <div class="scrollable">
+      <app-activity-panel
+        (emmitActiveitem)="emmitDatas($event)"
+        [panels]="[
+          {
+            project: 'Recent',
+            icon: 'history',
+            items: [
+              { title: 'Dashboard UI', count: 3 },
+              { title: 'Billing API' },
+              { title: 'User Settings' },
+            ],
+          },
+          {
+            project: 'BCA - CRM Web App',
+            items: [{ title: 'Customer List', count: 5 }, { title: 'Reports' }],
+          },
+        ]"
+      />
       <div class="menu-block">
         <p class="block-title">Recent</p>
         <a class="item active-item" routerLink="/dashboard" routerLinkActive="active-item">
@@ -70,9 +88,14 @@
     </div>
 
     <app-popup-dialoge [open]="open" (close)="open = false">
-      <h2>Custom Dialog</h2>
-
+      <h2>Add Project</h2>
       <p>This is custom UI inside the dialog.</p>
+      <div class="add-project">
+        <app-form-field [label]="'Enter Project Name'" [type]="'text'" />
+        <app-form-field [label]="'Descriptions'" [type]="'text'" />
+      </div>
+      <br />
+      <app-button [label]="'Save'" [type]="'button'" [icon]="'save'" (buttonClick)="saveProject()"/>
     </app-popup-dialoge>
   </section>
 

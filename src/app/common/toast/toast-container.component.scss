@@ -1,0 +1,20 @@
+// .toast-container {
+//   position: fixed;
+//   z-index: 99999;
+//   top: 20px;
+//   right: 20px;
+//   width: 360px;
+//   padding-top: 10px;
+//   padding-bottom: 200px;
+// }
+
+.toast-container {
+  position: fixed;
+
+  top: 20px;
+  right: 20px;
+
+  width: 360px;
+
+  z-index: 99999;
+}
