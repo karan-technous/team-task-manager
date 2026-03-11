@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { Toast } from './toast.model';
+import { Toast, ToastOptions, ToastPosition } from './toast.model';
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {
@@ -7,6 +7,7 @@ export class ToastService {
   private readonly exitMs = 300;
 
   toasts = signal<Toast[]>([]);
+  position = signal<ToastPosition>('top-right');
 
   show(toast: Omit<Toast, 'id'>) {
     const newToast: Toast = {
@@ -15,6 +16,10 @@ export class ToastService {
       removing: false,
       ...toast,
     };
+
+    if (newToast.position) {
+      this.position.set(newToast.position);
+    }
 
     this.toasts.update((list) => [newToast, ...list]);
   }
@@ -40,4 +45,35 @@ export class ToastService {
     }, this.exitMs);
   }
 
+  success(title: string, description?: string, options?: ToastOptions) {
+    this.createTyped('success', title, description, options);
+  }
+
+  error(title: string, description?: string, options?: ToastOptions) {
+    this.createTyped('error', title, description, options);
+  }
+
+  warning(title: string, description?: string, options?: ToastOptions) {
+    this.createTyped('warning', title, description, options);
+  }
+
+  pending(title: string, description?: string, options?: ToastOptions) {
+    this.createTyped('pending', title, description, options);
+  }
+
+  private createTyped(
+    type: NonNullable<Toast['type']>,
+    title: string,
+    description?: string,
+    options?: ToastOptions,
+  ) {
+    this.show({
+      title,
+      description: description ?? options?.description,
+      duration: options?.duration,
+      position: options?.position,
+      action: options?.action,
+      type,
+    });
+  }
 }

@@ -18,10 +18,14 @@ export class ToastContainerComponent {
 
   totalCount = computed(() => this.toastService.toasts().length);
 
+  position = computed(() => this.toastService.position());
+
   layout = computed<'stacked' | 'vertical'>(() => {
     const count = this.totalCount();
     if (this.hovered()) return 'vertical';
     if (count > 3) return 'stacked';
     return 'vertical';
   });
+
+  positionClass = computed(() => `toast-container ${this.position()}`);
 }

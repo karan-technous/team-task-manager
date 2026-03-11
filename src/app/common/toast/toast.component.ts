@@ -1,11 +1,13 @@
 import { Component, input, output, computed, effect } from '@angular/core';
 import { Toast } from './toast.model';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-toast',
   standalone: true,
   templateUrl: './toast.component.html',
   styleUrl: './toast.component.scss',
+  imports:[MatIcon]
 })
 export class ToastComponent {
   toast = input.required<Toast>();
@@ -56,4 +58,21 @@ export class ToastComponent {
   });
 
   zIndex = computed(() => 100 - this.index());
+
+  icon = computed(() => {
+    switch (this.toast().type) {
+      case 'success':
+        return 'check_circle';
+      case 'error':
+        return 'error';
+      case 'warning':
+        return 'warning';
+      case 'pending':
+        return 'hourglass_top';
+      default:
+        return 'check_circle';
+    }
+  });
+
+  typeClass = computed(() => this.toast().type ?? 'success');
 }
