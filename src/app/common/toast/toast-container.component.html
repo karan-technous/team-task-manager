@@ -1,10 +1,14 @@
-<div class="toast-container" (mouseenter)="hovered = true" (mouseleave)="hovered = false">
-  @for (toast of toastService.toasts(); track toast.id; let i = $index) {
+<div
+  class="toast-container"
+  (mouseenter)="hovered.set(true)"
+  (mouseleave)="hovered.set(false)"
+>
+  @for (toast of visibleToasts(); track toast.id; let i = $index) {
     <app-toast
       [toast]="toast"
       [index]="i"
-      [hovered]="hovered"
-      [total]="toastService.toasts().length"
+      [hovered]="hovered()"
+      [total]="totalCount()"
       (close)="toastService.remove(toast.id)"
     />
   }

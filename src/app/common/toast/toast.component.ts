@@ -34,26 +34,28 @@ export class ToastComponent {
     });
   }
 
-  offset = computed(() => {
-    // vertical layout
-    if (this.total() <= 3) {
-      return this.index() * 72;
-    }
+  private readonly itemOffset = 72;
+  private readonly stackOffset = 12;
+  private readonly stackScaleStep = 0.05;
 
-    // expanded on hover
-    if (this.hovered()) {
-      return this.index() * 72;
+  offset = computed(() => {
+    const stacked = this.total() > 3 && !this.hovered();
+
+    // vertical layout (default + on hover)
+    if (!stacked) {
+      return this.index() * this.itemOffset;
     }
 
     // stacked layout
-    return this.index() * 12;
+    return this.index() * this.stackOffset;
   });
 
   scale = computed(() => {
-    if (this.total() <= 3) return 1;
+    const stacked = this.total() > 3 && !this.hovered();
+    if (!stacked) return 1;
 
-    if (this.hovered()) return 1;
-
-    return 1 - this.index() * 0.05;
+    return Math.max(0.85, 1 - this.index() * this.stackScaleStep);
   });
+
+  zIndex = computed(() => 100 - this.index());
 }

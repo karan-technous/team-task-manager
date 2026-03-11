@@ -16,5 +16,9 @@
 
   width: 360px;
 
-  z-index: 99999;
+  z-index: 2147483000;
+  padding-top: 16px;
+  padding-bottom: 320px;
+  min-height: 240px;
+  pointer-events: auto;
 }

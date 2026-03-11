@@ -1,7 +1,9 @@
 <div
   class="toast"
   [class.removing]="toast().removing"
-  [style.transform]="'translateY(' + offset() + 'px) scale(' + scale() + ')'"
+  [style.--toast-y.px]="offset()"
+  [style.--toast-scale]="scale()"
+  [style.zIndex]="zIndex()"
 >
   <div class="content">
     <div class="title">

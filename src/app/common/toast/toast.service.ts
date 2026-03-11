@@ -4,6 +4,8 @@ import { Toast } from './toast.model';
 @Injectable({ providedIn: 'root' })
 export class ToastService {
   private id = 0;
+  private readonly maxVisible = 3;
+  private readonly exitMs = 300;
 
   toasts = signal<Toast[]>([]);
 
@@ -16,13 +18,33 @@ export class ToastService {
     };
 
     this.toasts.update((list) => [newToast, ...list]);
+    this.trimOverflow();
   }
 
   remove(id: number) {
-    this.toasts.update((list) => list.map((t) => (t.id === id ? { ...t, removing: true } : t)));
+    let alreadyRemoving = false;
+
+    this.toasts.update((list) =>
+      list.map((t) => {
+        if (t.id !== id) return t;
+        if (t.removing) {
+          alreadyRemoving = true;
+          return t;
+        }
+        return { ...t, removing: true };
+      }),
+    );
+
+    if (alreadyRemoving) return;
 
     setTimeout(() => {
       this.toasts.update((list) => list.filter((t) => t.id !== id));
-    }, 350);
+    }, this.exitMs);
+  }
+
+  private trimOverflow() {
+    const overflow = this.toasts().slice(this.maxVisible);
+    if (!overflow.length) return;
+    overflow.forEach((toast) => this.remove(toast.id));
   }
 }

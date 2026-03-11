@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ToastService } from './toast.service';
 import { ToastComponent } from './toast.component';
 
@@ -12,5 +12,9 @@ import { ToastComponent } from './toast.component';
 export class ToastContainerComponent {
   toastService = inject(ToastService);
 
-  hovered = false;
+  hovered = signal(false);
+
+  visibleToasts = computed(() => this.toastService.toasts().slice(0, 3));
+
+  totalCount = computed(() => this.toastService.toasts().length);
 }
