@@ -2,14 +2,16 @@ import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Button } from '../../common/button/button';
 import { IconInput } from '../../common/icon-input/icon-input';
+import { PopupDialoge } from '../../common/popup-dialoge/popup-dialoge';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [MatIconModule, Button, IconInput],
+  imports: [MatIconModule, Button, IconInput, PopupDialoge],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })
 export class Dashboard {
+  open = false;
   readonly metrics = [
     { label: 'Active Projects', value: '4' },
     { label: 'Open Tasks', value: '28' },

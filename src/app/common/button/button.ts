@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './button.scss',
 })
 export class Button {
-  label = input<string>('Button');
+  label = input<string>('');
   type = input<'button' | 'submit'>('button');
   variant = input<'primary' | 'secondary'>('primary');
   fullWidth = input<boolean>(false);

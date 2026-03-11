@@ -65,8 +65,15 @@
         [label]="'New Projects'"
         [fullWidth]="true"
         [icon]="'add'"
+        (click)="open = true"
       />
     </div>
+
+    <app-popup-dialoge [open]="open" (close)="open = false">
+      <h2>Custom Dialog</h2>
+
+      <p>This is custom UI inside the dialog.</p>
+    </app-popup-dialoge>
   </section>
 
   <section class="page">

@@ -7,7 +7,9 @@
   @if (icon()) {
     <mat-icon>{{ icon() }}</mat-icon>
   }
-  <span>
-    {{ label() }}
-  </span>
+  @if (label()) {
+    <span>
+      {{ label() }}
+    </span>
+  }
 </button>

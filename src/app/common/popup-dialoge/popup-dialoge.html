@@ -1,1 +1,14 @@
-<p>popup-dialoge works!</p>
+@if (open()) {
+  <div class="overlay" (click)="closeDialog()"></div>
+  <div class="dialog">
+    <div class="close-dialog">
+      <app-icon-button
+        [variant]="'secondary'"
+        [icon]="'close'"
+        (buttonClick)="closeDialog()"
+        [active]="true"
+      />
+    </div>
+    <ng-content></ng-content>
+  </div>
+}
